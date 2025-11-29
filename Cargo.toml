@@ -9,4 +9,6 @@ repository = "https://github.com/srobertson/saucer"
 keywords = ["tea", "framework", "placeholder"]
 categories = ["development-tools"]
 
+[workspace]
+
 [dependencies]
