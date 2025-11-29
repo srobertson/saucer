@@ -15,44 +15,64 @@ The Elm Architecture provides a simple pattern: `Model + Event → (Model, Comma
 
 ## Example
 
+Saucer uses a build script to generate type-safe runtime code. Write your app logic in pure Rust:
+
+**src/app.rs:**
 ```rust
-use saucer::{Cmd, command::shutdown};
-use chrono::{DateTime, Utc};
+// Your pure business logic - no side effects
+use saucer_core::Cmd;
+use saucer_time::command::time_now;
 
 pub struct Model {
-    pub current_time: Option<String>,
+    current_time: Option<String>,
 }
 
 pub enum Msg {
-    GotTime(String),
-    Done,
+    GotTime(f64),
 }
 
 pub fn init() -> (Model, Cmd<Msg>) {
-    let model = Model { current_time: None };
-    let cmd = time_now(|ts| ts)
-        .map(format_timestamp)
-        .map(Msg::GotTime);
-    (model, cmd)
+    (
+        Model { current_time: None },
+        time_now(Msg::GotTime)
+    )
 }
 
 pub fn update(model: Model, msg: Msg) -> (Model, Cmd<Msg>) {
     match msg {
-        Msg::GotTime(formatted) => {
-            let model = Model { current_time: Some(formatted), ..model };
-            println!("Current time: {}", model.current_time.as_ref().unwrap());
-            (model, shutdown())
+        Msg::GotTime(timestamp) => {
+            let time_str = format!("Time: {}", timestamp);
+            println!("{}", time_str);
+            (
+                Model { current_time: Some(time_str) },
+                Cmd::none()
+            )
         }
-        Msg::Done => (model, Cmd::none()),
     }
 }
+```
 
-pub fn view(_model: &Model) -> () {}
+**src/main.rs:**
+```rust
+mod runtime {
+    include!(concat!(env!("OUT_DIR"), "/runtime.rs"));
+}
+
+use runtime::{Runtime, app};
 
 fn main() {
-    Runtime::run(init, update, view);
+    Runtime::run(app::init, app::update);
 }
 ```
+
+**build.rs:**
+```rust
+fn main() {
+    saucer_core::build::generate_runtime();
+}
+```
+
+The build script discovers your effect managers and generates type-safe `Cmd` wrappers automatically.
 
 Stay tuned for the release!
 
