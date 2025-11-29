@@ -1,6 +1,6 @@
 # Saucer - The Elm Architecture for Rust
 
-![Saucer Tea Party](docs/assets/tea-party.png)
+![Saucer Tea Party](docs/assets/tea-party-hero.png)
 
 **Status: Coming Soon**
 
