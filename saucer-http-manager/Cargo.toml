@@ -1,0 +1,18 @@
+[package]
+name = "saucer-http-manager"
+version = "0.1.0"
+edition = "2021"
+description = "HTTP request types for saucer (real manager coming soon)"
+publish = false
+
+[package.metadata.saucer]
+effect_manager = false
+has_templates = false
+
+[dependencies]
+saucer-core = { path = "../saucer-core" }
+saucer-core-macros = { path = "../saucer-core-macros" }
+serde = { version = "1", features = ["derive"] }
+
+[features]
+default = []

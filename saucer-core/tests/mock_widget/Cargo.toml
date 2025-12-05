@@ -1,0 +1,14 @@
+[package]
+name = "mock-widget"
+version = "0.1.0"
+edition = "2021"
+exclude = ["src/*.tea.rs"]
+
+[package.metadata.saucer]
+has_templates = true
+
+[dependencies]
+saucer-core = { path = "../.." }
+
+[build-dependencies]
+saucer-core = { path = "../..", features = ["build"] }

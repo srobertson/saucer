@@ -1,0 +1,15 @@
+[package]
+name = "mock-http-manager"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.saucer]
+effect_manager = true
+request_type = "HttpRequest"
+manager_type = "HttpManager"
+self_msg_type = "()"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+saucer-core = { path = "../.." }
+saucer-http-manager = { path = "../../../saucer-http-manager" }

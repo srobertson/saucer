@@ -1,0 +1,52 @@
+[package]
+name = "saucer-core"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Saucer core runtime, codegen, and TEA primitives"
+
+# Exclude templates from packaging; they are build-time only.
+exclude = ["src/*.tea.rs", "**/*.tea.rs"]
+
+[package.metadata.saucer]
+effect_manager = true
+request_type = "CoreRequest"
+manager_type = "CoreManager"
+self_msg_type = "()"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+tokio = { version = "1", features = ["rt", "sync", "time", "macros"] }
+
+[features]
+build = ["dep:syn", "dep:quote", "dep:proc-macro2", "dep:toml", "dep:prettyplease"]
+
+[dev-dependencies]
+mock-app = { path = "tests/mock_app" }
+mock-port-app = { path = "tests/mock_port_app" }
+mock-wrapper-app = { path = "tests/mock_wrapper_app" }
+mock-port-http-app = { path = "tests/mock_port_http_app" }
+tracing-subscriber = "0.3"
+
+[dependencies.syn]
+version = "2"
+features = ["full", "parsing"]
+optional = true
+
+[dependencies.quote]
+version = "1"
+optional = true
+
+[dependencies.proc-macro2]
+version = "1"
+optional = true
+
+[dependencies.toml]
+version = "0.8"
+optional = true
+
+[dependencies.prettyplease]
+version = "0.2"
+optional = true

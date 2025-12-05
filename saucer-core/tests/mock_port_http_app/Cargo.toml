@@ -1,0 +1,19 @@
+[package]
+name = "mock-port-http-app"
+version = "0.1.0"
+edition = "2021"
+publish = false
+exclude = ["src/*.tea.rs"]
+
+[package.metadata.saucer]
+has_templates = true
+
+[dependencies]
+saucer-core = { path = "../.." }
+mock-http-manager = { path = "../mock_http_manager" }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+tokio = { version = "1", features = ["rt", "sync", "time"] }
+
+[build-dependencies]
+saucer-core = { path = "../..", features = ["build"] }
