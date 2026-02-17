@@ -15,7 +15,7 @@ The Elm Architecture provides a simple pattern: `Model + Event → (Model, Comma
 
 ## Example
 
-Saucer ships a synchronous TEA runtime, a codegen pipeline (the same one used in the cmd-poc), and a ports system for host/app bridging. Write your app logic in pure Rust:
+Saucer ships a synchronous TEA runtime, a codegen pipeline, and a ports system for host/app bridging. Write your app logic in pure Rust:
 
 **src/app.rs:**
 ```rust
